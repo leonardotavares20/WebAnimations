@@ -9,4 +9,34 @@ body {
   width: 100px;
   height: 100px;
   background-color: gold;
+  /* animation-delay: 2s; */
+  /* animation-name: moveX; */
+  /* animation-duration: 4s; */
+  /* animation-iteration-count: 2; */
+  /* animation-play-state: paused; */
+  /* animation-direction: alternate; */
+  /* animation-timing-function: ease-in-out; */
+  animation: moveX 4s 0s ease-in-out 2 alternate forwards running;
+}
+
+@keyframes moveX {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateY(calc(50vh - 50px));
+  }
+
+  40% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateX(calc(50vw - 140px));
+  }
+
+  100% {
+    transform: translateX(calc(100vw - 140px));
+  }
 }
