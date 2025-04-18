@@ -17,16 +17,23 @@ body {
   height: 50px;
   background-color: greenyellow;
 
-  /* transition: left 2s linear(0, 0.25, 1); */ 
+  /* transition: left 2s linear(0, 0.25, 1); */
   /* a animacao inicia em no progresso 0% e na metade o progresso está em 25% devido ao 0.25, e depois durante o tempo que resta entre os 50% e 100% */
 
-  transition: left 2s linear(0, 0.25 75%, 1);
+  /* transition: left 2s linear(0, 0.25 75%, 1); */
   /* aqui inicia em 0 e entre 0% e 75% da animação o progresso vai de 0 para 0.25 e depois no resto entre 75% e 100% o progresso vai de 0.25 para 1 */
 
   /* transition: left 2s linear(0, 0.25, 0.25, 0.5, 1); */
-                             /* 0%, 25%, 50%, 75%, 100% */
+  /* 0%, 25%, 50%, 75%, 100% */
 
   /* transition: left 2s linear(0, 0.25 25% 75%, 1); */
+
+  /* transition: left 2s cubic-bezier(.28,-0.71,.7,1.57); */
+
+  transition: left 2s steps(4, jump-both);
+
+  /* na funcao steps voce pode passar o numero de passos e os parametros: jump-start, jump-end, jump-none, jump-both */
+
   left: -5px;
   position: absolute;
 }
