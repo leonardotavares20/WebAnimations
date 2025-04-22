@@ -16,27 +16,32 @@ body {
   /* animation-play-state: paused; */
   /* animation-direction: alternate; */
   /* animation-timing-function: ease-in-out; */
-  animation: moveX 4s 0s ease-in-out 2 alternate forwards running;
+  animation: moveX 2s 1s ease-in-out infinite alternate forwards,
+    bounce 0.2s 1s ease-in-out infinite alternate;
+  /* transform: rotate(20deg); */
+  animation-composition: add;
 }
+
+/* animation-composition: replace; -> a animacao a propriedade antiga é removida pela nova na animacao   */
+/* animation-composition: add; -> a nova propriedade eh adicionada na animacao */
+/* animation-composition: accumulate; -> a nova propriedade eh adicionada na propriedade antiga */
 
 @keyframes moveX {
   0% {
     transform: translateX(0);
   }
 
-  25% {
-    transform: translateY(calc(50vh - 50px));
+  100% {
+    transform: translateX(calc(100vw - 140px));
   }
+}
 
-  40% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateX(calc(50vw - 140px));
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
   }
 
   100% {
-    transform: translateX(calc(100vw - 140px));
+    transform: translateY(100px);
   }
 }
