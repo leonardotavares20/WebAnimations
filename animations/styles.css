@@ -25,7 +25,7 @@ body {
   /* transform: rotate(20deg); */
 }
 
-/* animation-composition: replace; -> a animacao a propriedade antiga é removida pela nova na animacao   */
+/* animation-composition: replace; -> na animacao a propriedade antiga é removida pela nova na animacao   */
 /* animation-composition: add; -> a nova propriedade eh adicionada na animacao */
 /* animation-composition: accumulate; -> a nova propriedade eh adicionada na propriedade antiga */
 
