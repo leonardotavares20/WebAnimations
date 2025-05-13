@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // animate inicia sem chamar o metodo play
 
+  // playback rate pertence a animation object
+  // duration pertence a keyframe effect
+
   const squareAnimation = element.animate(
     [
       { transform: "translateX(0)", easing: "ease-in" },
@@ -15,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       duration: 3000,
       easing: "ease-in-out",
-      iterations: Infinity,
+      iterations: 2,
       direction: "alternate",
       fill: "forwards",
       iterationComposite: "accumulate",
@@ -43,6 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
       if (button.classList.contains("finish")) {
         squareAnimation.finish();
       }
+      if (button.classList.contains("changeAnimation")) {
+        squareAnimation.effect.setKeyframes([
+          { transform: "translateY(0)", easing: "ease-in" },
+          { backgroundColor: "blue", offset: 0.8 },
+          {
+            transform: "translateY(calc(100vw - 100px)) rotate(360deg)",
+            backgrundColor: "red",
+          },
+        ]);
+      }
+      if (button.classList.contains("logInfo")) {
+        console.log("currentTime", squareAnimation.currentTime);
+        console.log("startTime", squareAnimation.startTime);
+        console.log("playbackRate", squareAnimation.playbackRate);
+        console.log("playbackState", squareAnimation.playState);
+        console.log("Keyframes", squareAnimation.effect.getKeyframes());
+        console.log("Timing", squareAnimation.effect.getTiming());
+        console.log(
+          "ComputedTiming",
+          squareAnimation.effect.getComputedTiming()
+        );
+      }
     });
 
     const playbackRateInput = document.getElementById("playbackRateInput");
@@ -50,10 +75,35 @@ document.addEventListener("DOMContentLoaded", () => {
       "playbackRateInputValue"
     );
 
+    playbackRateInput.value = squareAnimation.playbackRate;
+    playbackRateInputValue.value = squareAnimation.playbackRate;
+
     playbackRateInput.addEventListener("input", (e) => {
       squareAnimation.updatePlaybackRate(e.target.value);
       playbackRateInputValue.value = e.target.value;
     });
+
+    const durationInput = document.getElementById("durationInput");
+    const durationInputValue = document.getElementById("durationInputValue");
+
+    durationInput.value = squareAnimation.effect.getTiming().duration;
+    durationInputValue.value = squareAnimation.effect.getTiming().duration;
+
+    durationInput.addEventListener("input", (e) => {
+      squareAnimation.effect.updateTiming({ duration: +e.target.value });
+      durationInputValue.value = e.target.value;
+    });
+
+    const infiniteInput = document.getElementById("infiniteInput");
+
+    infiniteInput.addEventListener("change", (e) => {
+      squareAnimation.effect.updateTiming({
+        iterations: e.target.checked ? Infinity : 2,
+      });
+    });
+
+    infiniteInput.checked =
+      squareAnimation.effect.getTiming().iterations === Infinity;
   });
 
   // com new Animation e KeyframeEffect precisa chamar o metodo play para iniciar
@@ -83,5 +133,5 @@ document.addEventListener("DOMContentLoaded", () => {
   //   document.timeline
   // );
 
-  squareAnimation.play();
+  squareAnimation.pause();
 });
