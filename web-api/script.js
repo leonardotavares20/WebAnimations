@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     {
       duration: 3000,
+      delay: 1000,
       easing: "ease-in-out",
       iterations: 2,
       direction: "alternate",
@@ -133,5 +134,35 @@ document.addEventListener("DOMContentLoaded", () => {
   //   document.timeline
   // );
 
-  squareAnimation.pause();
+  squareAnimation.play();
+
+  // squareAnimation.currentTime =
+  //   squareAnimation.effect.getComputedTiming().activeDuration / 2 +
+  //   squareAnimation.effect.getComputedTiming().delay;
+
+  const currentTime = document.getElementById("currentTime");
+  const currentTimeValue = document.getElementById("currentTimeValue");
+
+  currentTime.value = squareAnimation.currentTime;
+  currentTimeValue.value = squareAnimation.currentTime;
+
+  currentTime.addEventListener("input", (e) => {
+    squareAnimation.currentTime = e.target.value;
+    currentTimeValue.value = e.target.value;
+  });
+
+  const startTime = document.getElementById("startTime");
+  const startTimeValue = document.getElementById("startTimeValue");
+
+  startTime.value = squareAnimation.startTime ? squareAnimation.startTime : 0;
+  startTimeValue.value = squareAnimation.startTime
+    ? squareAnimation.startTime
+    : 0;
+
+  startTime.addEventListener("input", (e) => {
+    squareAnimation.startTime = e.target.value;
+    startTimeValue.value = e.target.value;
+  });
+
+  // squareAnimation.startTime = 3000;
 });
