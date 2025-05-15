@@ -34,12 +34,23 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", () => {
       if (button.classList.contains("play")) {
         squareAnimation.play();
+        console.log("pending", squareAnimation.pending);
+        squareAnimation.ready.then(() => {
+          console.log("playstate after play", squareAnimation.playState);
+          console.log("pending", squareAnimation.pending);
+        });
       }
       if (button.classList.contains("pause")) {
         squareAnimation.pause();
+        squareAnimation.ready.then(() => {
+          console.log("playstate after pause", squareAnimation.playState);
+        });
       }
       if (button.classList.contains("cancel")) {
         squareAnimation.cancel();
+        squareAnimation.ready.then(() => {
+          console.log("playstate after cancel", squareAnimation.playState); // idle significa que nao ha currentTime na animacao, e tambem nao ha tasks pendentes
+        });
       }
       if (button.classList.contains("reverse")) {
         squareAnimation.reverse();
@@ -134,8 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //   document.timeline
   // );
 
-  squareAnimation.play();
-
   // squareAnimation.currentTime =
   //   squareAnimation.effect.getComputedTiming().activeDuration / 2 +
   //   squareAnimation.effect.getComputedTiming().delay;
@@ -165,4 +174,43 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // squareAnimation.startTime = 3000;
+  squareAnimation.pause();
+
+  // a propriedade depending vai indicar se a animacao esta esperando por uma operacao assincrona
+  // metodos como play e pause sao metodos assincronos; quando chamados, eles demoram algum tempo para serem executados
+  // a propriedade ready vai indicar quando a animacao estiver pronta para ser executada, ela é uma promise, portanto pode ser usada com then ou await, e é executada assincronamente
+  console.log("playstate after pause", squareAnimation.playState);
+  console.log("pending after pause", squareAnimation.pending);
+
+  squareAnimation.ready.then(() => {
+    console.log("ready animation");
+    console.log("playstate after ready", squareAnimation.playState);
+    console.log("playstate after ready", squareAnimation.pending);
+  });
+
+  squareAnimation.play();
+
+  console.log("playstate after play", squareAnimation.playState);
+  console.log("pending after play", squareAnimation.pending);
+
+  // squareAnimation.finished.then(() => {
+  //   console.log("finished animation");
+  //   console.log("playstate after finished", squareAnimation.playState);
+  //   console.log("pending after finished", squareAnimation.pending);
+  //   element.remove()
+  // })
+
+  squareAnimation.addEventListener("finish", () => {
+    console.log("finished animation");
+    console.log("playstate after finished", squareAnimation.playState);
+    console.log("pending after finished", squareAnimation.pending);
+    element.remove();
+  });
+
+  squareAnimation.addEventListener("cancel", () => {
+    console.log("finished animation");
+    console.log("playstate after cancel", squareAnimation.playState);
+    console.log("pending after cancel", squareAnimation.pending);
+    element.remove();
+  });
 });
