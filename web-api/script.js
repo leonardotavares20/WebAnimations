@@ -1,20 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
   const element = document.querySelector(".square");
-  const elementTwo = document.querySelector(".square-3");
+  // const elementTwo = document.querySelector(".square-3");
 
   // animate inicia sem chamar o metodo play
 
   // playback rate pertence a animation object
   // duration pertence a keyframe effect
 
-  elementTwo.animate(
-    [{ backgroundColor: "red" }, { backgroundColor: "blue" }],
-    {
-      duration: 2000,
-      iterations: Infinity,
-      direction: "alternate",
-    }
-  );
+  // elementTwo.animate(
+  //   [{ backgroundColor: "red" }, { backgroundColor: "blue" }],
+  //   {
+  //     duration: 2000,
+  //     iterations: Infinity,
+  //     direction: "alternate",
+  //   }
+  // );
 
   const squareAnimation = element.animate(
     [
@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 3000,
       delay: 1000,
       easing: "ease-in-out",
-      iterations: 2,
+      iterations: 1,
       direction: "alternate",
-      fill: "forwards",
+      fill: "both",
       iterationComposite: "accumulate",
-      composite: "add",
+      composite: "replace",
       timeline: document.timeline,
     }
   );
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("finished animation");
     console.log("playstate after cancel", squareAnimation.playState);
     console.log("pending after cancel", squareAnimation.pending);
-    element.remove();
+    // element.remove();
   });
 
   // metodos uteis para acessibilidade, caso o usuario queira desativar as animacoes do site, ou deixar elas mais lentas ou rapidas
@@ -247,5 +247,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
+  });
+
+  // commitStyles mantem as animacoes quando o fill mode for forwards ou both, em que o elemento permanece na posicao final definida, no entanto, nao sendo mais mantido pelo browser, o que afeta a performace, mas sim pelos estilos da animacao diretamente no elemento.
+
+  squareAnimation.addEventListener("finish", () => {
+    squareAnimation.commitStyles();
+    squareAnimation.cancel();
+    element.style.transform = "translateX(30px)";
   });
 });
