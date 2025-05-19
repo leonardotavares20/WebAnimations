@@ -21,9 +21,32 @@ body {
   /* animation: 3s 1s infinite alternate both linear moveAndRotate; */
 }
 
+.square-2 {
+  width: 30px;
+  height: 30px;
+  background-color: purple;
+  animation: 2s bounce infinite alternate ease-in-out;
+}
+
+.square-3 {
+  width: 70px;
+  height: 70px;
+  animation: 2s bounce infinite alternate ease-in-out;
+}
+
 .square.pause {
   animation-play-state: paused;
 }
 .square.reverse {
   animation-direction: alternate-reverse;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(30px);
+  }
 }

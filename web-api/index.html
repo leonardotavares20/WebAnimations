@@ -8,9 +8,16 @@
     <script src="./script.js"></script>
   </head>
   <body>
-    <div class="square"></div>
+    <div class="square">
+      <div class="square-2"></div>
+    </div>
+    <div class="square-3"></div>
     <div class="controls">
       <button class="button logInfo">Log Info</button>
+      <br />
+      <label for="animationSpeed">Animation Speed</label>
+      <button class="speedButton increase">+</button>
+      <button class="speedButton decrease">-</button>
       <div class="section">
         <h3>Animation Object (DVD Player)</h3>
         <button class="button play">Play</button>
@@ -22,11 +29,11 @@
         <label for="playbackRateInput">Playback Rate</label>
         <input type="range" id="playbackRateInput" step="0.2" min="0" max="2" />
         <output id="playbackRateInputValue" for="playbackRateInput">0</output>
-        <br>
+        <br />
         <label for="currentTime">Current Time</label>
         <input type="range" id="currentTime" step="100" min="0" max="10000" />
         <output id="currentTimeValue" for="currentTime">0</output>
-        <br>
+        <br />
         <label for="startTime">Start Time</label>
         <input type="range" id="startTime" step="100" min="0" max="6000" />
         <output id="startTimeValue" for="startTime">0</output>

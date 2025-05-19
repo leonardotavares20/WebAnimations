@@ -1,10 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
   const element = document.querySelector(".square");
+  const elementTwo = document.querySelector(".square-3");
 
   // animate inicia sem chamar o metodo play
 
   // playback rate pertence a animation object
   // duration pertence a keyframe effect
+
+  elementTwo.animate(
+    [{ backgroundColor: "red" }, { backgroundColor: "blue" }],
+    {
+      duration: 2000,
+      iterations: Infinity,
+      direction: "alternate",
+    }
+  );
 
   const squareAnimation = element.animate(
     [
@@ -174,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // squareAnimation.startTime = 3000;
-  squareAnimation.pause();
+  squareAnimation.play();
 
   // a propriedade depending vai indicar se a animacao esta esperando por uma operacao assincrona
   // metodos como play e pause sao metodos assincronos; quando chamados, eles demoram algum tempo para serem executados
@@ -200,17 +210,42 @@ document.addEventListener("DOMContentLoaded", () => {
   //   element.remove()
   // })
 
-  squareAnimation.addEventListener("finish", () => {
-    console.log("finished animation");
-    console.log("playstate after finished", squareAnimation.playState);
-    console.log("pending after finished", squareAnimation.pending);
-    element.remove();
-  });
+  // squareAnimation.addEventListener("finish", () => {
+  //   console.log("finished animation");
+  //   console.log("playstate after finished", squareAnimation.playState);
+  //   console.log("pending after finished", squareAnimation.pending);
+  //   element.remove();
+  // });
 
   squareAnimation.addEventListener("cancel", () => {
     console.log("finished animation");
     console.log("playstate after cancel", squareAnimation.playState);
     console.log("pending after cancel", squareAnimation.pending);
     element.remove();
+  });
+
+  // metodos uteis para acessibilidade, caso o usuario queira desativar as animacoes do site, ou deixar elas mais lentas ou rapidas
+
+  // console.log(document.getAnimations());
+
+  // console.log("element 1", element.getAnimations({ subtree: true }));
+  // console.log("element 2", elementTwo.getAnimations());
+
+  const speedButtons = document.querySelectorAll(".speedButton");
+
+  speedButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.classList.contains("increase")) {
+        document.getAnimations().forEach((animation) => {
+          animation.updatePlaybackRate(animation.playbackRate + 0.1);
+        });
+      }
+
+      if (button.classList.contains("decrease")) {
+        document.getAnimations().forEach((animation) => {
+          animation.updatePlaybackRate(animation.playbackRate - 0.1);
+        });
+      }
+    });
   });
 });
