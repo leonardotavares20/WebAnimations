@@ -101,7 +101,7 @@ body {
   height: 90%;
   bottom: 0px;
   left: 0;
-} 
+}
 
 .jump {
   animation: jump 0.5s ease-in-out 2 alternate;
