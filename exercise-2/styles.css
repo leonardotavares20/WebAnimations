@@ -50,6 +50,21 @@ body {
   opacity: 0.8;
 }
 
+.shadow {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 20vh;
+  aspect-ratio: 5;
+  border-radius: 50%;
+  background-color: black;
+  opacity: 0.25;
+  filter: blur(3px);
+}
+
 .character {
   --char-width: 25vh;
   position: absolute;
@@ -92,4 +107,40 @@ body {
   height: 90%;
   bottom: 0px;
   left: 0;
+}
+
+.car-wrapper {
+  position: relative;
+}
+.car {
+  position: absolute;
+  bottom: 3%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-image: url("./assets/car.png");
+  --car-width: 120vh;
+  background-size: contain;
+  width: var(--car-width);
+  aspect-ratio: 2.3;
+}
+.car:after {
+  content: "";
+  background-image: url("./assets/wheel.png");
+  background-size: cover;
+  width: 15.2%;
+  aspect-ratio: 1;
+  bottom: 4%;
+  left: 19%;
+  position: absolute;
+}
+.car:before {
+  content: "";
+  background-image: url("./assets/wheel.png");
+  background-size: cover;
+  width: 15.2%;
+  aspect-ratio: 1;
+  bottom: 4%;
+  right: 9.9%;
+  position: absolute;
 }
