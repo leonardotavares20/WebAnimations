@@ -15,13 +15,14 @@ body {
   /* animation-iteration-count: 2; */
   /* animation-play-state: paused; */
   /* animation-direction: alternate; */
+  /* animation-direction: reverse; */ /* inverte o sentido da animacao */
   /* animation-timing-function: ease-in-out; */
   /* animation: moveX 2s 1s ease-in-out infinite alternate forwards,
     bounce 0.2s 1s ease-in-out infinite alternate; */
   animation: moveX 2s 1s ease-in-out 3 alternate both;
   animation-composition: add;
-  /* animation-fill-mode: forwards; */
-  /* animation-fill-mode: backwards; */
+  /* animation-fill-mode: forwards; */ /* mantem a animacao no ultimo frame */
+  /* animation-fill-mode: backwards; */ /* aplica imediatamente os estilos do primeiro keyframe */
   /* transform: rotate(20deg); */
 }
 
