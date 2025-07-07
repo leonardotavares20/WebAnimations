@@ -1,0 +1,87 @@
+body {
+  background-color: #1d1d1d;
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  overflow: auto;
+  /* animation: linear both changeBg; */
+  background-color: #100e1e;
+  /* timeline-scope: --progress-view;
+  animation-timeline: --progress-view; */
+  animation-range: 50% normal;
+}
+
+.content {
+  padding: 30px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.progress {
+  width: 100%;
+  height: 100px;
+  /* height: 150vh; */
+  background-color: rgb(57, 41, 67);
+  position: relative;
+  margin: 20px 0;
+}
+
+.progress-inner {
+  position: absolute;
+  /* width: 50%; */
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* view-timeline: --progress-view block; a prop de view funciona diferente da prop de animation-timeline, em que tu baseia a tua animacao no scroll de um elemento, mas aqui nessa prop tu se baseia quando o elemento aparecer na viewport, entao a animacao começa quando o elemento entra na viewport e é completa quando ele sai, mas voce pode customizar isso tambem com a prop animation-range, ela tambem funciona direto com o escopo, por exemplo se outros elementos quiserem depender desse elemento em especifico se ele nao ser descendente dele, entao tu precisa aumentar o escopo do elemento de target, alem desses tem o entry-crossing, que so inicia o progresso quando o bottom do elemento entrar na viewport, e o exit-crossing, que inicia o progresso quando o top do elemento sair da viewport, e finaliza quando ele estiver totalmente fora da viewport */
+  background-color: rgb(209, 90, 213);
+  animation: 2s linear both animateWidth;
+  animation-timeline: view(20%);
+  animation-range: contain;
+  /* exitem tambem named timeline ranges, que cumprem papeis mais especificos como: normal, que é o padrao, contain: que so inicia a animacao quando o elemento estiver totalmente visivel na viewport, e o progresso acaba quando o elemento for sair; tem tambem o entry, que inicia quando o elemento começa a aparecer na view, e finaliza quando o elemento esta completamente visivel na viewport; alem do entry tem o exit, que é basicamente o contrario do entry, onde a animacao inicia perto do elemento sair da viewport e acaba quando ele estiver totalmente fora da viewport  */
+  /* animation-timeline: --progress-view; */
+  /* animation-range: 200px 60%; */
+  /* view-timeline-inset: auto 50%; top edge bottom edge, pode receber em pixels ou porcentagem, a prop de view-timeline-inset pode definir quando a animacao vai acontecer baseado no edge da viewport, se voce colocar so um valor, ele vai ser aplicado aos 2 edges, é como se voce diminuisse o escopo do edge pra que a animacao ocorra dentro daquela viewport definida se voce colocar auto e 50%, significa que o top edge vai ser o valor padrao de 100% e 50% do bottom, os valores tambem podem ser negativos, e sendo negativo a animacao deve começar antes da viewport do browser pq voce no caso, aumentou a edge da viewport com o valor negativo */
+}
+/* 
+.container::after {
+  content: "";
+  position: fixed;
+  top: 0%;
+  left: 0; 
+  width: 100%;
+  z-index: 10;
+  height: 10px;
+  background-color: rgb(216, 255, 110);
+}
+
+.container::before {
+  content: "";
+  z-index: 10;
+  position: fixed;
+  bottom: 50%;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-color: rgb(216, 255, 110);
+} */
+
+@keyframes animateWidth {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes changeBg {
+  to {
+    background-color: rgb(30, 4, 71);
+  }
+}
