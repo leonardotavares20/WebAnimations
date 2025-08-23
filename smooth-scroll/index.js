@@ -201,7 +201,6 @@ smoothScroll();
 
 function createTimeline(animations) {
   let rafIds = [];
-  let index = 0;
   let startTimeStamp = 0;
 
   function playTimeline() {
