@@ -1,8 +1,16 @@
+.services {
   padding: 20px 0px 60px;
   position: relative;
   background-image: linear-gradient(transparent, black);
 }
 
+.services .video {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  mask-image: linear-gradient(transparent, black, transparent);
+}
 .services .video {
   position: sticky;
   top: 0;
@@ -18,28 +26,65 @@
 }
 
 .services .content {
+  /* background-color: red; */
   margin-top: -100vh;
+  /* padding-bottom: var(--header-height); */
 }
+
 .services h2 {
   text-align: center;
   font-size: 3rem;
-  margin: 0 0 4rem;
+  margin: 0 0 40px;
+  animation: both titleAppear;
+  animation-timeline: view(); /* inicia quando o elemento entrar na tela */
 }
+
 .services .cards {
   --card-height: 50vh;
   --card-gap: 20px;
   --num: 4;
+  view-timeline: --cards-view;
 }
 
 .services .cards .cards-grid {
   max-width: 1000px;
   padding: 0 30px;
+  /* height: calc(
+    var(--card-height) * var(--num) + var(--card-height) / var(--num)
+  ); */
   margin: 0 auto;
+  padding-bottom: calc(var(--card-gap) * var(--num));
 }
 
 .services .cards .cards-grid .card {
   height: var(--card-height);
+  position: sticky;
+  /* top: var(--header-height); */
+  top: var(--header-height);
+  padding-top: calc(var(--i) * var(--card-gap));
 }
+
+.services .cards .cards-grid .card:nth-child(1) {
+  --i: 1;
+  --r: 1deg;
+  --b: pink;
+}
+.services .cards .cards-grid .card:nth-child(2) {
+  --i: 2;
+  --r: -1deg;
+  --b: rgb(139, 139, 255);
+}
+.services .cards .cards-grid .card:nth-child(3) {
+  --i: 3;
+  --r: -1deg;
+  --b: gold;
+}
+.services .cards .cards-grid .card:nth-child(4) {
+  --i: 4;
+  --r: 1deg;
+  --b: pink;
+}
+
 .services .cards .cards-grid .card-inner {
   background-color: rgb(11 9 14 / 85%);
   backdrop-filter: blur(6px);
@@ -49,6 +94,12 @@
   display: flex;
   align-items: center;
   padding: 30px;
+  view-timeline: --card-view;
+  animation: both servicesCard;
+  animation-timeline: --cards-view;
+  animation-range: exit-crossing calc(((var(--i) - 1) / var(--num)) * 100%)
+    exit-crossing calc((var(--i) / var(--num)) * 100%);
+  transform-origin: 50% 0;
 }
 
 .services .cards .cards-grid .card-inner .left {
@@ -60,7 +111,10 @@
 }
 .services .cards .cards-grid .card-inner img {
   width: 100%;
+  height: 40vh;
   object-fit: contain;
+  animation: both cardImage;
+  animation-timeline: --card-view;
 }
 .services .cards .cards-grid .card-inner h3 {
   font-size: 2.4rem;
@@ -82,7 +136,56 @@
   cursor: pointer;
   border-radius: 5px;
   transition: 0.3s;
+  animation: 2s both infinite buttonGlow;
 }
 .services .cards .cards-grid .card-inner button:hover {
   background-color: rgba(219, 76, 235, 0.365);
+}
+
+@keyframes titleAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 2px var(--pink);
+  }
+  50% {
+    background-color: rgba(219, 76, 235, 0.2);
+    box-shadow: 0 0 10px var(--pink);
+  }
+  100% {
+    box-shadow: 0 0 2px var(--pink);
+  }
+}
+
+@keyframes cardImage {
+  0% {
+    transform: scale(0);
+  }
+
+  10% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes servicesCard {
+  to {
+    filter: blur(calc((var(--num) - var(--i)) * 1px));
+    border-color: var(--b);
+    transform: scale(calc(1 - (0.05 * (var(--num) - var(--i)))))
+      rotate(var(--r));
+  }
 }

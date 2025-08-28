@@ -61,6 +61,13 @@ header.nav h1 svg.animate .cls-1 {
   }
 }
 
+@media (prefers-reduced-motion) {
+  header.nav h1 svg.animate .cls-1 {
+    animation: none;
+    fill: white;
+  }
+}
+
 header.nav .navigation ul {
   list-style: none;
   padding: 0;

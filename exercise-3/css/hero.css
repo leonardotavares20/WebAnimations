@@ -1,5 +1,5 @@
 .hero {
-  height: 150vh;
+  height: 100vh;
   view-timeline: --hero-view;
 }
 .hero-inner {
@@ -7,6 +7,46 @@
   overflow: hidden;
   position: sticky;
   top: 0;
+  /* mix-blend-mode: hard-light; */
+}
+
+@supports (animation-timeline: view()) {
+  .hero {
+    height: 150vh;
+  }
+
+  .hero .front-video {
+    animation: both frontVideoClipPath, both frontVideoBorder;
+    animation-timeline: --hero-view;
+    animation-range: exit-crossing;
+  }
+
+  .hero .front-video video {
+    color: rgb(247, 130, 150);
+    animation: both frontVideoClipPath, both frontVideoSaturation;
+    animation-timeline: --hero-view;
+    animation-range: exit-crossing;
+    filter: saturate(0);
+  }
+
+  .hero .back-video video {
+    animation: forwards backVideo;
+    animation-timeline: --hero-view;
+    animation-range: exit-crossing 0% exit-crossing 20%;
+  }
+
+  .hero .content .content-inner h2.first {
+    animation: both titleOne;
+    color: rgb(235, 83, 159);
+    animation-timeline: --hero-view;
+    animation-range: exit-crossing 0% exit-crossing 10%;
+  }
+  .hero .content .content-inner h2.second {
+    animation: both titleTwo;
+    color: rgb(235, 83, 159);
+    animation-timeline: --hero-view;
+    animation-range: exit-crossing 10% exit-crossing 70%;
+  }
 }
 
 .hero .back-video {
@@ -27,9 +67,6 @@
     5% 93%,
     0% 12%
   );
-  animation: forwards backVideo;
-  animation-timeline: --hero-view;
-  animation-range: exit-crossing 0% exit-crossing 20%;
 }
 
 .hero .back-video video {
@@ -61,9 +98,6 @@
     30% 100%,
     0% 50%
   );
-  animation: both frontVideoClipPath, both frontVideoBorder;
-  animation-timeline: --hero-view;
-  animation-range: exit-crossing;
 }
 
 .hero .front-video video {
@@ -72,9 +106,6 @@
   position: relative;
   z-index: 100;
   object-fit: cover;
-  animation: both frontVideoClipPath, both frontVideoSaturation;
-  animation-timeline: --hero-view;
-  animation-range: exit-crossing;
   clip-path: polygon(
     0% 0%,
     30% 0%,
@@ -84,7 +115,6 @@
     30% 100%,
     0% 50%
   );
-  filter: saturate(0.2);
 }
 
 .hero .content {
@@ -104,16 +134,6 @@
 .hero .content .content-inner h2 {
   font-size: 3.5rem;
   text-align: center;
-}
-.hero .content .content-inner h2.first {
-  animation: both titleOne;
-  animation-timeline: --hero-view;
-  animation-range: exit-crossing 0% exit-crossing 10%;
-}
-.hero .content .content-inner h2.second {
-  animation: both titleTwo;
-  animation-timeline: --hero-view;
-  animation-range: exit-crossing 10% exit-crossing 70%;
 }
 
 @keyframes frontVideoClipPath {
@@ -144,11 +164,48 @@
 
 @keyframes frontVideoSaturation {
   20% {
-    filter: saturate(1);
+    filter: saturate(0) blur(0px);
   }
 
-  to {
-    filter: saturate(0.2);
+  30% {
+    filter: saturate(1.5) blur(0px);
+  }
+
+  50% {
+    filter: saturate(1.5) blur(0px) invert(1);
+  }
+
+  90% {
+    filter: saturate(0.2) blur(20px) invert(1);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .hero .front-video {
+    animation: none;
+  }
+  .hero .front-video video {
+    animation: none;
+  }
+
+  .hero .back-video {
+    animation: none;
+  }
+  .hero .back-video video {
+    animation: none;
+  }
+
+  .hero {
+    height: 100vh;
+  }
+
+  .hero .content .content-inner h2.first {
+    animation: none;
+    color: rgb(255, 124, 248);
+  }
+  .hero .content .content-inner h2.second {
+    animation: none;
+    color: black;
   }
 }
 
